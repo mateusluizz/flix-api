@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
 
     # My app
-    'genres'
+    'genres',
+    'actors',
 ]
 
 MIDDLEWARE = [
