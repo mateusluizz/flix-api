@@ -40,3 +40,9 @@ def genre_detail_view(request, pk):
         return JsonResponse(
             data, safe=False
         )
+    elif request.method == 'DELETE':
+        genre.delete()
+        return JsonResponse(
+            {'message': 'Gender removed sucessfully'},
+            status=204,
+        )
