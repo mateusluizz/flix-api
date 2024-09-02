@@ -17,4 +17,4 @@ class Review(models.Model):
     comment = models.TextField(null=True, blank=True)
 
     def __str__(self) -> str:
-        return self.movie
+        return f"{self.movie}"
