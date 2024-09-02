@@ -27,7 +27,16 @@ def genre_create_list_view(request):
 @csrf_exempt
 def genre_detail_view(request, pk):
     genre = get_object_or_404(Genre, pk=pk)
-    data = {'id': genre.id, 'name': genre.name}
-    return JsonResponse(
-        data, safe=False
-    )
+
+    if request.method == 'GET':
+        data = {'id': genre.id, 'name': genre.name}
+        return JsonResponse(
+            data, safe=False
+        )
+    elif request.method == 'PUT':
+        data = json.loads(request.body.decode('utf-8'))
+        genre.name = data['name']
+        genre.save()
+        return JsonResponse(
+            data, safe=False
+        )
