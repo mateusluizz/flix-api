@@ -26,3 +26,10 @@ class MovieSerializer(serializers.ModelSerializer):
         if len(value) > 400:
             raise serializers.ValidationError('Resume cant have more than 400 characters')
         return value
+
+
+class MovieStatsSerializer(serializers.Serializer):
+    total_movies = serializers.IntegerField()
+    movie_by_genre = serializers.ListField()
+    total_reviews = serializers.IntegerField()
+    avg_stars = serializers.FloatField()
