@@ -3,7 +3,7 @@ from movies.models import Movie
 from rest_framework import generics, response, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import views
-from movies.serializers import MovieSerializer, MovieStatsSerializer
+from movies.serializers import MovieListDetailSerializer, MovieSerializer, MovieStatsSerializer
 from django.db.models import Count, Avg
 from reviews.models import Review
 
@@ -11,13 +11,22 @@ from reviews.models import Review
 class MovieGenreCreateListView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated, GlobalDefaultPermission,)
     queryset = Movie.objects.all()
-    serializer_class = MovieSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return MovieListDetailSerializer
+        return MovieSerializer
 
 
 class MovieRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated, GlobalDefaultPermission,)
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return MovieListDetailSerializer
+        return MovieSerializer
 
 
 class MovieStatsView(views.APIView):
